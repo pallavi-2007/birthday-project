@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your World - Surprise Gift</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffb6c1; /* Light pink background */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        h1 {
+            color: white;
+            margin-top: 20px;
+            font-size: 28px;
+        }
+
+        /* Gallery container */
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Memory cards with rotation effect */
+        .memory-card {
+            width: 200px;
+            height: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff1493; /* Dark pink text */
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: rotateCard 5s linear infinite; /* Revolving effect */
+        }
+
+        /* Keyframes for rotating effect */
+        @keyframes rotateCard {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(180deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* Button container */
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Surprise button */
+        .surprise-button {
+            background-color: #ff1493; /* Hot pink */
+            color: white;
+            font-size: 16px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .surprise-button:hover {
+            background-color: #d40078;
+        }
+
+        /* Pop-up overlay */
+        .popup-overlay, .image-popup-overlay {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Pop-up container */
+        .popup-container, .image-popup-container {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            max-width: 400px;
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Image in pop-up */
+        .popup-image {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Close button */
+        .close-button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .close-button:hover {
+            background-color: #d40078;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My World ✨</h1>
+    <p>A magical gallery of memories and moments to cherish forever</p>
+
+    <!-- Memory Cards (Click to View) -->
+    <div class="gallery-container">
+        <div class="memory-card" onclick="showImagePopup('image1.jpg', 'This was a special day!')">Memory1💖📸</div>
+        <div class="memory-card" onclick="showImagePopup('image4.jpg', 'A beautiful moment together!')">Memory 2 💖📸</div>
+        <div class="memory-card" onclick="showImagePopup('image6.jpg', 'Unforgettable laughter and joy!')">Memory 3 💖📸</div>
+        <div class="memory-card" onclick="showImagePopup('image5.jpg', 'Forever in my heart!')">Memory 4 💖📸</div>
+        <div class="memory-card" onclick="showImagePopup('image3.jpg', 'Our journey, our love!')">Memory 5💖 📸</div>
+    </div>
+
+    <!-- Button to trigger surprise message pop-up -->
+    <div class="button-container">
+        <button id="openPopup" class="surprise-button">💖✨ One last thing for you pappa,click here ✨💖</button>
+    </div>
+
+    <!-- Overlay background -->
+    <div id="popupOverlay" class="popup-overlay"></div>
+
+    <!-- Surprise Message Pop-up -->
+    <div id="popupContainer" class="popup-container">
+        <h2>To my great Dad 💖</h2>
+        <p>
+            Thank you for being the most incredible person in my world. Every moment with you is a treasure, and I'm so lucky for having father like u. 
+            I love you more than words can express, and I always will. Here's to creating countless more beautiful memories together! ✨💖
+        </p>
+        <button class="close-button" id="closePopup">Close with Love 💖</button>
+    </div>
+
+    <!-- Image Pop-up -->
+    <div id="imagePopupOverlay" class="image-popup-overlay"></div>
+
+    <div id="imagePopupContainer" class="image-popup-container">
+        <img id="popupImage" class="popup-image" src="" alt="Memory">
+        <p id="popupCaption"></p>
+        <button class="close-button" id="closeImagePopup">Close</button>
+    </div>
+
+    <script>
+        // Function to show image popup
+        function showImagePopup(imageSrc, captionText) {
+            document.getElementById("popupImage").src = imageSrc;
+            document.getElementById("popupCaption").innerText = captionText;
+            document.getElementById("imagePopupContainer").style.display = "block";
+            document.getElementById("imagePopupOverlay").style.display = "block";
+        }
+
+        // Close image pop-up
+        document.getElementById("closeImagePopup").addEventListener("click", function () {
+            document.getElementById("imagePopupContainer").style.display = "none";
+            document.getElementById("imagePopupOverlay").style.display = "none";
+        });
+
+        document.getElementById("imagePopupOverlay").addEventListener("click", function () {
+            document.getElementById("imagePopupContainer").style.display = "none";
+            document.getElementById("imagePopupOverlay").style.display = "none";
+        });
+
+        // Show text pop-up
+        document.getElementById("openPopup").addEventListener("click", function () {
+            document.getElementById("popupContainer").style.display = "block";
+            document.getElementById("popupOverlay").style.display = "block";
+        });
+
+        // Close text pop-up
+        document.getElementById("closePopup").addEventListener("click", function () {
+            document.getElementById("popupContainer").style.display = "none";
+            document.getElementById("popupOverlay").style.display = "none";
+        });
+
+        document.getElementById("popupOverlay").addEventListener("click", function () {
+            document.getElementById("popupContainer").style.display = "none";
+            document.getElementById("popupOverlay").style.display = "none";
+        });
+    </script>
+
+</body>
+</html>
+
